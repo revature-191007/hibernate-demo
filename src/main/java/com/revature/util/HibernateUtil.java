@@ -6,7 +6,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.revature.models.Location;
 import com.revature.models.Pokemon;
+import com.revature.models.Type;
 
 public class HibernateUtil {
 
@@ -19,6 +21,8 @@ public class HibernateUtil {
 		Configuration configuration = new Configuration()
 				.configure()
 				.addAnnotatedClass(Pokemon.class)
+				.addAnnotatedClass(Type.class)
+				.addAnnotatedClass(Location.class)
 				// Add username/password from environment variables
 				.setProperty("hibernate.connection.username", System.getenv("EM_ROLE"))
 				.setProperty("hibernate.connection.password", System.getenv("EM_PASS"));

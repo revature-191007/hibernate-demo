@@ -3,74 +3,75 @@ package com.revature.servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.revature.models.Pokemon;
-import com.revature.services.PokemonService;
-import com.revature.util.HibernateUtil;
+import com.revature.models.Location;
+import com.revature.services.LocationService;
 
-public class PokemonServlet extends HttpServlet {
-	private PokemonService pokemonService = new PokemonService();
-	private ObjectMapper om = new ObjectMapper();
-	
+public class LocationServlet extends HttpServlet {
+
+	LocationService locationService = new LocationService();
+	ObjectMapper om = new ObjectMapper();
+
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("application/json");
-		super.service(req, resp);
+	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+		res.setContentType("application/json");
+		super.service(req, res);
 	}
-	
+
 	@Override
 	public void init() throws ServletException {
-		HibernateUtil.configureHibernate();
 		om.registerModule(new Hibernate5Module());
+		super.init();
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// /pokemon/{id}
 		String info = req.getPathInfo();
-		
+
 		if (info == null) {
 			resp.setStatus(400);
 			return;
 		}
-		
+
 		String[] parts = info.split("/");
-		
+
 		if (parts.length <= 0) {
 			resp.setStatus(400);
 			return;
 		}
 		int id = 0;
-		
+
 		try {
 			id = Integer.parseInt(parts[1]);
 		} catch (NumberFormatException e) {
 			resp.setStatus(400);
 			return;
 		}
-		
-		Pokemon pokemon = pokemonService.getPokemonById(id);
-		
-		om.writeValue(resp.getWriter(), pokemon);
+
+		Location location = locationService.getTypeById(id);
+
+		om.writeValue(resp.getWriter(), location);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Pokemon pokemon = om.readValue(req.getReader(), Pokemon.class);
-		Pokemon savedPokemon = pokemonService.save(pokemon);
-		om.writeValue(resp.getWriter(), savedPokemon);
+		Location location = om.readValue(req.getReader(), Location.class);
+		Location savedLocation = locationService.save(location);
+		om.writeValue(resp.getWriter(), savedLocation);
 	}
-	
+
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Pokemon pokemon = om.readValue(req.getReader(), Pokemon.class);
-		Pokemon savedPokemon = pokemonService.update(pokemon);
-		om.writeValue(resp.getWriter(), savedPokemon);
+		Location location = om.readValue(req.getReader(), Location.class);
+		Location savedLocation = locationService.update(location);
+		om.writeValue(resp.getWriter(), savedLocation);
 	}
+
 }

@@ -13,12 +13,18 @@ public class PokemonService {
 	
 	public Pokemon getPokemonById(int id) {
 		logger.trace("Retrieving pokemon: " + id);
-		return pokemonDao.getPokemonById(id);
+		Pokemon pokemon = pokemonDao.getPokemonById(id);
+		pokemon.getName();
+		return pokemon;
 	}
 
 	public Pokemon save(Pokemon pokemon) {
 		logger.trace("Saving pokemon");
 		return pokemonDao.savePokemon(pokemon);
+	}
+
+	public Pokemon update(Pokemon pokemon) {
+		return pokemonDao.merge(pokemon);
 	}
 
 }

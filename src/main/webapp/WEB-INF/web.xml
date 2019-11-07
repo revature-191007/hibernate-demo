@@ -3,16 +3,35 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  
-  <servlet>
-  	<servlet-name>PokemonServlet</servlet-name>
-  	<servlet-class>com.revature.servlets.PokemonServlet</servlet-class>
-  	<load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>PokemonServlet</servlet-name>
-  	<url-pattern>/pokemon/*</url-pattern>
-  </servlet-mapping>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<servlet>
+		<servlet-name>PokemonServlet</servlet-name>
+		<servlet-class>com.revature.servlets.PokemonServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>TypeServlet</servlet-name>
+		<servlet-class>com.revature.servlets.TypeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LocationServlet</servlet-name>
+		<servlet-class>com.revature.servlets.LocationServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PokemonServlet</servlet-name>
+		<url-pattern>/pokemon/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>TypeServlet</servlet-name>
+		<url-pattern>/types/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>LocationServlet</servlet-name>
+		<url-pattern>/locations/*</url-pattern>
+	</servlet-mapping>
 </web-app>
