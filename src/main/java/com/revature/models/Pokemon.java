@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 
 /**
  * JPA annotations - Annotations which define the entity relationship between
@@ -19,15 +21,16 @@ import javax.persistence.ManyToOne;
  * but we can optionally set other values and define relationships.
  */
 
+@NamedQuery(name = "getPokemonByMaxWeight", query = "FROM Pokemon p WHERE weight <= :weight")
 @Entity // Defines that this class can be managed by an ORM
-//@Table  OPTIONAL: configuration details for the table 
+//@Table  OPTIONAL: configuration details for the table
 public class Pokemon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column // OPTIONAL: Configuration details for the column
 	private int id;
 
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20, unique = true)
 	private String name;
 
 	private double weight;

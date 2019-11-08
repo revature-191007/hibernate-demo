@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.revature.daos.PokemonDao;
@@ -25,6 +27,26 @@ public class PokemonService {
 
 	public Pokemon update(Pokemon pokemon) {
 		return pokemonDao.merge(pokemon);
+	}
+
+	public List<Pokemon> findAll() {
+		return pokemonDao.findAll();
+	}
+
+	public Pokemon getPokemonByName(String name) {
+		return pokemonDao.getPokemonByName(name);
+	}
+
+	public List<Pokemon> getPokemonByType(String type) {
+		return pokemonDao.getPokemonByType(type);
+	}
+
+	public List<Pokemon> getPokemonByMinHeight(double minHeight) {
+		return pokemonDao.getPokemonByMinHeight(minHeight);
+	}
+
+	public List<Pokemon> getPokemonByMaxWeight(double maxWeight) {
+		return pokemonDao.getPokemonByMaxWeight(maxWeight);
 	}
 
 }
